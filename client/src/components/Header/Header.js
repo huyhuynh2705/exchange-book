@@ -22,7 +22,7 @@ const Header = () => {
 	const location = useLocation();
 
 	const signOut = () => {
-		dispatch({ type: 'SIGN_OUT' });
+		dispatch({ type: 'LOG_OUT' });
 		window.location.reload();
 		setUser(null);
 	};
