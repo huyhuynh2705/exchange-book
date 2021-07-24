@@ -18,9 +18,9 @@ const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
       </CardContent>
       <CardActions className={classes.cardActions}>
         <div className={classes.buttons}>
-          <Button type="button" size="small" onClick={() => handleUpdateCartQty(item._id, item.count - 1)}>-</Button>
+          <Button type="button" size="large" onClick={() => handleUpdateCartQty(item._id, item.count - 1)}>-</Button>
           <Typography>&nbsp;{item.quantity}&nbsp;</Typography>
-          <Button type="button" size="small" onClick={() => handleUpdateCartQty(item._id, item.count + 1)}>+</Button>
+          <Button type="button" size="large" onClick={() => handleUpdateCartQty(item._id, item.count + 1)}>+</Button>
         </div>
         <Button variant="contained" type="button" color="secondary" onClick={() => handleRemoveFromCart(item._id)}>Remove</Button>
       </CardActions>
