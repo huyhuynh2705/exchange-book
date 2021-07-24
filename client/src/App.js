@@ -15,17 +15,17 @@ const App = (props) => {
 	const [cart, setCart] = useState([]);
 
 	const addToCart = (book) => {
-		const my_cart = cart;
 		let alreadyInCart = false;
-		my_cart.forEach((item) => {
+		console.log(cart);
+		cart.forEach((item) => {
 			if (item._id === book._id){
 				item.count++;
 				alreadyInCart = true;
 			}
 		})
 		if (!alreadyInCart){
-			my_cart.push({...book, count: 1});
-			setCart(my_cart);
+			cart.push({...book, count: 1});
+			setCart(cart);
 		}
 	}; 
 
@@ -39,9 +39,8 @@ const App = (props) => {
 
 	const removeFromCart = (book) => {
 		const items = cart.filter(item => item._id !== book._id);
-		console.log(items);
-  		setCart({ items })
-		console.log(cart);
+  		setCart(items);
+		console.log("Removed:" + cart);
 	}; 
 
 	const emptyCart = () => {

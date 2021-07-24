@@ -12,10 +12,6 @@ const Book = ({ book, onAddToCart }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	const handleAddToCart = () => {
-		onAddToCart(book);
-	}
-
 	const handleClick = (e) => {
 		e.preventDefault();
 		history.push(`/books/${book?._id}`);
@@ -55,7 +51,7 @@ const Book = ({ book, onAddToCart }) => {
 						&nbsp; Like &nbsp;
 						{book?.likeCount}
 					</Button>
-					<Button size='small' color='primary' onClick={handleAddToCart}>
+					<Button size='small' color='primary' onClick={() => onAddToCart(book)}>
 						Borrow
 					</Button>
 				</CardActions>
