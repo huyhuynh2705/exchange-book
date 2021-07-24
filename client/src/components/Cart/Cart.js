@@ -1,83 +1,86 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import CartItem from './CartItem';
+import { Container, Typography, Button, Grid } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import image from './DoctorStrange_3.jpg';
+import CartItem from './CartItem/CartItem';
 import useStyles from './styles';
 
 const Cart = () => {
-    const items = [
-        {
-          id: 1,
-          name: 'Ohrensessel Josslyn',
-          currency: 'EUR',
-          image: './DoctorStrange_3.jpg',
-        },
-        {
-          id: 2,
-          name: 'Sessel Sofie',
-          currency: 'EUR',
-          image: './DoctorStrange_3.jpg',
-        },
-        {
-          id: 4,
-          name: 'Schlafsessel Rovigo',
-          currency: 'EUR',
-          image: './DoctorStrange_3.jpg',
-        },
-        {
-          id: 6,
-          name: 'Sessel Little',
-          currency: 'EUR',
-          image: './DoctorStrange_3.jpg',
-        },
-        {
-          id: 5,
-          name: 'Sessel Peacock',
-          currency: 'EUR',
-          image: './DoctorStrange_3.jpg',
-        },
-        {
-          id: 3,
-          name: 'Sessel Anna',
-          currency: 'EUR',
-          image: './DoctorStrange_3.jpg',
-        }
-    ];
-    const total = 100;
-    const currency = "$";
     const classes = useStyles();
-    const removeFromCart = (item) => {
-        return " ";
-    }
-    return (
-        <div>
-            <h3>Cart</h3>
+    const onUpdateCartQty = () => {};
+    const onRemoveFromCart = () => {};
+    const onEmptyCart = () => {};
+    
+    const cartItems = [
+        {
+            _id: "1",
+            title: "Dark Nhan tam",
+            count: 2,
+            selectedFile: image
+        }, 
+        {
+            _id: "2",
+            title: "Dark Nhan tam",
+            count: 3,
+            selectedFile: image
+        }, 
+    ];
+    const cart = {
+        line_items: [
+            {
+                _id: "1",
+                title: "Dark Nhan tam",
+                count: 2,
+                selectedFile: image
+            }, 
+            {
+                _id: "2",
+                title: "Dark Nhan tam",
+                count: 3,
+                selectedFile: image
+            }, 
+        ],
+        subtotal: {
+            formatted_with_symbol: "30$"
+        }
+    };
 
-            <div className="cart">
-                <div className="panel panel-default">
-                    <div className="panel-body">
-                        {items.length > 0 && (
-                            <div className={classes.cart__body}>
-                                {items.map(item => (
-                                    <CartItem key={item.id} {...item} onClick={() => removeFromCart(item.id)} />
-                                ))}
-                            </div>
-                        )}
-                        {items.length === 0 && (
-                            <div className="alert alert-info">Cart is empty</div>
-                        )}
-                        <div className={classes.cart__total}>Total: {total} {currency}</div>
-                    </div>
-                </div>
+    const handleEmptyCart = () => onEmptyCart();
+
+    const renderEmptyCart = () => (
+        <Typography variant="subtitle1">You have no items in your shopping cart,
+        <Link className={classes.link} to="/">start adding some</Link>!
+        </Typography>
+    );
+
+    if (!cart.line_items) return 'Loading';
+
+    const renderCart = () => (
+        <>
+        <Grid container spacing={2}>
+            {cart.line_items.map((lineItem) => (
+            <Grid item xs={12} sm={4} key={lineItem._id}>
+                <CartItem item={lineItem} onUpdateCartQty={onUpdateCartQty} onRemoveFromCart={onRemoveFromCart} />
+            </Grid>
+            ))}
+        </Grid>
+        <div className={classes.cardDetails}>
+            <Typography variant="h4">Subtotal: {cart.subtotal.formatted_with_symbol}</Typography>
+            <div>
+            <Button className={classes.emptyButton} size="large" type="button" variant="contained" color="secondary" onClick={handleEmptyCart}>Empty cart</Button>
+            <Button className={classes.checkoutButton} component={Link} to="/checkout" size="large" type="button" variant="contained" color="primary">Checkout</Button>
             </div>
         </div>
+        </>
     );
-}
 
-Cart.propTypes = {
-    items: PropTypes.array,
-    total: PropTypes.number,
-    currency: PropTypes.string,
-    removeFromCart: PropTypes.func.isRequired
-}
+    return (
+        <Container>
+        <div className={classes.toolbar} />
+        <Typography className={classes.title} variant="h3" gutterBottom>Your Cart</Typography>
+        { !cart.line_items.length ? renderEmptyCart() : renderCart() }
+        </Container>
+    );
+};
 
 export default Cart;
