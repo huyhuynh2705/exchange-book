@@ -1,59 +1,68 @@
-import React from 'react';
-import { Paper, TextField, Typography, Grid, FormControlLabel, Checkbox, Container } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import FileBase from 'react-file-base64';
+import { Paper, TextField, Typography, Grid, Container, Button } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import useStyles from './styles';
+import { createBook } from '../../action/books';
+import { useHistory } from 'react-router-dom';
+
+const initialState = { title: '', review: '', price: '', selectedFile: '', creator: '' };
 
 const AddBook = () => {
 	const classes = useStyles();
+	const history = useHistory();
+	const [form, setForm] = useState(initialState);
+	const dispatch = useDispatch();
+	const user = JSON.parse(localStorage.getItem('profile'));
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log({ ...form, creator: user?.result?.fullName });
+		const id = await dispatch(createBook({ ...form, creator: user?.result?.fullName }));
+		history.push(`/books/${id}`);
+	};
+
+	useEffect(() => {
+		if (!user) {
+			history.push('/auth');
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	return (
 		<Container className={classes.paper}>
-			<Typography variant='h6' gutterBottom>
-				{' '}
-				Add Book{' '}
-			</Typography>
-			<Grid container spacing={3}>
-				<Grid item xs={12} sm={12}>
-					<TextField required id='title' name='title' label='Title' fullWidth autoComplete='given-name' />
-				</Grid>
+			<Paper style={{ padding: '20px' }}>
+				<form onSubmit={handleSubmit}>
+					<Typography variant='h6' gutterBottom>
+						Add Book
+					</Typography>
+					<Grid container spacing={3}>
+						<Grid item xs={12} sm={12}>
+							<TextField required name='title' label='Title' fullWidth onChange={(e) => setForm({ ...form, title: e.target.value })} />
+						</Grid>
 
-				{/* <Grid item xs={12}>
-                <TextField
-                required
-                id="condition"
-                name="address1"
-                label="Address line 1"
-                fullWidth
-                autoComplete="shipping address-line1"
-                />
-            </Grid>
-            <Grid item xs={12}>
-                <TextField
-                id="address2"
-                name="address2"
-                label="Address line 2"
-                fullWidth
-                autoComplete="shipping address-line2"
-                />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-                <TextField
-                required
-                id="city"
-                name="city"
-                label="City"
-                fullWidth
-                autoComplete="shipping address-level2"
-                />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-                <TextField id="state" name="state" label="State/Province/Region" fullWidth />
-            </Grid> */}
-				<Grid item xs={12} sm={6}>
-					<TextField required id='zip' name='zip' label='Zip / Postal code' fullWidth autoComplete='shipping postal-code' />
-				</Grid>
-				<Grid item xs={12} sm={6}>
-					<TextField required id='country' name='country' label='Country' fullWidth autoComplete='shipping country' />
-				</Grid>
-			</Grid>
+						<Grid item xs={12}>
+							<TextField required name='review' label='Review' fullWidth onChange={(e) => setForm({ ...form, review: e.target.value })} />
+						</Grid>
+						<Grid item xs={12}>
+							<TextField required name='price' label='Price' fullWidth onChange={(e) => setForm({ ...form, price: e.target.value })} />
+						</Grid>
+						<Grid item xs={12} sm={12}>
+							<div className={classes.fileInput}>
+								<Typography variant='h6' align='center'>
+									Add a poster
+								</Typography>
+								<FileBase type='file' multiple={false} onDone={({ base64 }) => setForm({ ...form, selectedFile: base64 })} />
+							</div>
+						</Grid>
+						<Grid item xs={12} sm={12}>
+							<Button variant='contained' color='primary' type='submit' fullWidth>
+								Submit
+							</Button>
+						</Grid>
+					</Grid>
+				</form>
+			</Paper>
 		</Container>
 	);
 };

@@ -1,10 +1,22 @@
 import axios from 'axios';
 
-//const url = 'https://movie-rating-web-app.herokuapp.com/posts';
-const url = 'http://localhost:5000/books';
+const API = axios.create({ baseURL: 'http://localhost:5000/' });
 
-export const fetchBooks = () => axios.get(url);
-export const createBook = (newBook) => axios.post(url, newBook);
-export const updateBook = (id, updatedBook) => axios.patch(`${url}/${id}`, updatedBook);
-export const deleteBook = (id) => axios.delete(`${url}/${id}`)
-export const likeBook = (id) => axios.patch(`${url}/${id}/likeBook`);
+API.interceptors.request.use((req) => {
+	if (localStorage.getItem('profile')) {
+		req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+	}
+	return req;
+});
+
+export const signIn = (form) => API.post('/auth/signin', form);
+export const signUp = (form) => API.post('/auth/signup', form);
+
+export const fetchBooks = () => API.get('/books');
+export const createBook = (newBook) => API.post('/books', newBook);
+export const getBook = (id) => API.get(`/books/${id}`);
+export const updateBook = (id, updatedBook) => API.patch(`/books/${id}`, updatedBook);
+export const deleteBook = (id) => API.delete(`/books/${id}`);
+export const likeBook = (id) => API.patch(`/books/${id}/likeBook`);
+
+export const fetchQuestionsBySearch = (searchQuery) => API.get(`/books/search?searchQuery=${searchQuery}`);
