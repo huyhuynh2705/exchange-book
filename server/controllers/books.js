@@ -26,33 +26,33 @@ export const createBook = async (req, res) => {
 }
 
 export const updateBook = async (req, res) => {
-    const { id: _id } = req.params;
+    const {id: _id} = req.params;
     const Book = req.body;
 
-    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No Book with that id');
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No Book with that id');
 
-    const updatedBook = await BookMessage.findByIdAndUpdate(_id, Book, { new: true });
+    const updatedBook = await BookMessage.findByIdAndUpdate(_id, Book, {new: true});
 
     res.json(updatedBook);
 }
 
 export const deleteBook = async (req, res) => {
-    const { id } = req.params;
+    const {id} = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No Book with that id');
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No Book with that id');
 
     await BookMessage.findByIdAndRemove(id);
 
-    res.json({message: 'Book deleted sucessfully'});
+    res.json({message: 'Book deleted successfully'});
 }
 
 export const likeBook = async (req, res) => {
-    const { id } = req.params;
+    const {id} = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No Book with that id');
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No Book with that id');
 
     const Book = await BookMessage.findById(id);
-    const likedBook = await BookMessage.findByIdAndUpdate(id, { likeCount: Book.likeCount + 1}, { new: true });
+    const likedBook = await BookMessage.findByIdAndUpdate(id, {likeCount: Book.likeCount + 1}, {new: true});
 
     res.json(likedBook);
 }
