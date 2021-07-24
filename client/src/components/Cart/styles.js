@@ -1,53 +1,30 @@
 
 import { makeStyles } from "@material-ui/core/styles";
-
 export default makeStyles((theme) => ({
-    button:{
-        padding: "1rem",
-        border: "0.1rem #c0c0c0 solid",
-        backgroundColor: "#f0f0f0",
+    cart__body: {
+        marginBottom: "0.7em"
     },
-    media: {
-        width: "20%",
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        backgroundBlendMode: 'darken',
-    },
-    button_primary:{
-        backgroundColor:"#f0f0f0",
-    },
-    cart: {
-        padding:"1rem",
-        margin:"1rem",
-        display:"flex"
-    },
-    cart_header:{
-        borderBottom:"0.1rem #c0c0c0 solid"
-    },
-    cart_items:{
-        padding:"0",
-        width:"100%",
-        listStyleType:"none",
-    },
-    cart_items_img:{
-        width:"5rem"
-    },
-    cart_items_li:{
-        display:"flex"
-    },
-    cart_items_li_div:{
-        padding:".5rem"
-    },
-    cart_items_li_div_last_child:{
-        flex:"1"
-    },
-    right:{
-        textAlign:"right"
-    },
-    total:{
-        display:"flex",
+  
+    cartItem: {
+        marginBottom: "0.3em",
+        display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        width: "100%",
     },
+  
+    cartItem__name: {
+        marginLeft: "0.5em",
+        verticalAlign: "middle",
+    },
+  
+    cartItem__price: {
+        fontWeight: "bold",
+    },
+  
+    cart__total: {
+        fontWeight: "bold",
+        fontSize: "1.5em",
+        lineHeight: "1.1em",
+        textAlign: "right"
+    }
 }));
-
