@@ -30,10 +30,10 @@ const App = (props) => {
 	}; 
 
 	const updateCartQty = (book, quantity) => {
-		let cart_copy = {... cart};
+		let cart_copy = [...cart];
 		let idx = cart.findIndex(item => item._id === book._id);
-		console.log(idx);
 		cart_copy[idx].count = quantity;
+		if (!cart_copy[idx].count) removeFromCart(book);
 		setCart(cart_copy);
 	}; 
 
