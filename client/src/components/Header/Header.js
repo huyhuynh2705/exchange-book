@@ -1,52 +1,94 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Avatar, TextField, AppBar, Toolbar, Typography, Button } from '@material-ui/core';
+
+// import { fetchQuestionsBySearch } from '../../actions/questions';
+
 import useStyles from './styles';
-import { Link } from 'react-router-dom';
-import Avatar from '@material-ui/core/Avatar';
+
+// const useQuery = () => {
+// 	return new URLSearchParams(useLocation().search);
+// };
 
 const Header = () => {
 	const classes = useStyles();
+	const dispatch = useDispatch();
+	const history = useHistory();
+	// const query = useQuery();
+	// const searchQuery = query.get('searchQuery');
+	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+	const [search, setSearch] = useState('');
+	const location = useLocation();
 
-	const user = 'null';
-
-	const handleLogout = (e) => {
-		console.log('logout');
+	const signOut = () => {
+		dispatch({ type: 'SIGN_OUT' });
+		window.location.reload();
+		setUser(null);
 	};
 
+	const searchQuestion = (e) => {
+		if (search.trim()) {
+			// dispatch(fetchQuestionsBySearch({ search }, 1));
+			history.push(`/search?searchQuery=${search}`);
+		} else {
+			history.push('/');
+		}
+	};
+	useEffect(() => {
+		setUser(JSON.parse(localStorage.getItem('profile')));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [location]);
+
 	return (
-		<div className={classes.grow}>
+		<div>
 			<AppBar position='fixed'>
 				<Toolbar>
-					<Typography component={Link} to='/' className={classes.title} variant='h6' noWrap>
-						Exchange Books
+					<Typography variant='h6' className={classes.title}>
+						<Link className={classes.link} to={'/'} underline='none' color='initial'>
+							STACKUNDERFLOW
+						</Link>
 					</Typography>
-					{user ? (
+					<div className={classes.search}>
+						<TextField
+							className={classes.textField}
+							margin='dense'
+							size='small'
+							variant='filled'
+							label='Search questions'
+							fullWidth
+							InputProps={{
+								className: classes.input,
+							}}
+							InputLabelProps={{
+								className: classes.inputLabel,
+							}}
+							onChange={(e) => setSearch(e.target.value)}
+						/>
+						<Button variant='contained' color='default' onClick={searchQuestion}>
+							Search
+						</Button>
+					</div>
+					{user?.result ? (
 						<div className={classes.profile}>
-							<Button component={Link} to='/cart' color='inherit'>
-								Cart
-							</Button>
-							<Button component={Link} to='/addbook' color='inherit'>
-								Add Book
-							</Button>
-							<Avatar className={classes.avatar}>H</Avatar>
-							<Button color='inherit' onClick={handleLogout}>
+							<Avatar className={classes.purple} alt={user?.result.fullName} src={user?.result.imageUrl}>
+								{user?.result.imageUrl ? user?.result.imageUrl : user?.result.fullName.charAt(0)}
+							</Avatar>
+							<Typography className={classes.userName} variant='h6'>
+								{user?.result.fullName ? user?.result.fullName : user?.result.name}
+							</Typography>
+							<Button variant='contained' color='default' onClick={signOut}>
 								Logout
 							</Button>
 						</div>
 					) : (
-						<div className={classes.profile}>
-							<Button component={Link} to='/auth' variant='contained' color='default'>
-								<Typography className={classes.signin} variant='h7'>
-									Signin
-								</Typography>
-							</Button>
-						</div>
+						<Button className={classes.buttonSignIn} component={Link} to='/auth' variant='contained' color='default'>
+							Sign In
+						</Button>
 					)}
 				</Toolbar>
 			</AppBar>
+			{/* <Toolbar /> */}
 		</div>
 	);
 };

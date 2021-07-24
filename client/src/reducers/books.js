@@ -1,20 +1,25 @@
 import { FETCH_ALL, CREATE, DELETE, UPDATE, LIKE } from '../constants/actionTypes';
 
-const bookReducer = (books = [], action) => {
-    switch (action.type) {
-        case FETCH_ALL:
-            return action.payload;
-        case CREATE:
-            return [...books, action.payload];
-        case UPDATE:
-            return books.map((book) => book._id === action.payload._id ? action.payload : book);
-        case LIKE:
-            return books.map((book) => book._id === action.payload._id ? action.payload : book);
-        case DELETE:
-            return books.filter((book) => book._id !== action.payload);
-        default:
-            return books;
-    }
-}
+const bookReducer = (state = { books: [] }, action) => {
+	switch (action.type) {
+		case 'FETCH_BY_SEARCH':
+		case FETCH_ALL:
+			return {
+				...state,
+				books: action.payload,
+			};
+		case CREATE:
+			return { ...state, books: [...state.books, action.payload] };
+		case UPDATE:
+		case LIKE:
+			return { ...state, books: state.books.map((book) => (book._id === action.payload._id ? action.payload : book)) };
+		case DELETE:
+			return { ...state, books: state.books.filter((book) => book._id !== action.payload._id) };
+		case 'GET_BOOK':
+			return { ...state, book: action.payload };
+		default:
+			return state;
+	}
+};
 
 export default bookReducer;
