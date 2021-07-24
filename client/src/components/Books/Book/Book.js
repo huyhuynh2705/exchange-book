@@ -7,7 +7,7 @@ import { likeBook } from '../../../action/books';
 
 import useStyles from './styles';
 
-const Book = ({ book }) => {
+const Book = ({ book, addToCart }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -21,7 +21,7 @@ const Book = ({ book }) => {
 		e.preventDefault();
 		dispatch(likeBook(book?._id));
 	};
-
+    
 	return (
 		<Grow in>
 			<Card className={classes.card}>
@@ -51,7 +51,7 @@ const Book = ({ book }) => {
 						&nbsp; Like &nbsp;
 						{book?.likeCount}
 					</Button>
-					<Button size='small' color='primary' onClick={() => {}}>
+					<Button size='small' color='primary' onClick={() => addToCart(book)}>
 						Borrow
 					</Button>
 				</CardActions>
