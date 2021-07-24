@@ -2,11 +2,10 @@ import React from "react";
 import { Grow, Card, CardActions, CardContent, CardMedia, Button, Typography } from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { useDispatch } from 'react-redux';
-
-
 import useStyles from "./styles";
+import Books from "../Books";
 
-const Book = ({ book }) => {
+const Book = ({ book, addToCart }) => {
     const classes = useStyles();
     //const dispatch = useDispatch();
 
@@ -36,7 +35,7 @@ const Book = ({ book }) => {
                         &nbsp; Like &nbsp;
                         {book.likeCount}
                     </Button>
-                    <Button size="small" color="primary" onClick={() => {} }>
+                    <Button size="small" color="primary" onClick={() => addToCart(book)}>
                         Borrow
                     </Button>
                 </CardActions>

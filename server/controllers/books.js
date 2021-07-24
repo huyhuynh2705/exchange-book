@@ -4,8 +4,7 @@ import mongoose from 'mongoose';
 export const getBooks = async (req, res) => {
     try {
         const BookMessages = await BookMessage.find();
-
-        res.status(200).json(BookMessages);
+        res.status(200).json({BookMessages});
     } catch (error) {
         res.status(404).json({message: error.message});
     }
@@ -13,12 +12,10 @@ export const getBooks = async (req, res) => {
 
 export const createBook = async (req, res) => {
     const Book = req.body;
-
     const newBook = new BookMessage(Book);
 
     try {
         await newBook.save();
-
         res.status(201).json(newBook);
     } catch (error) {
         res.status(409).json({message: error.message});
