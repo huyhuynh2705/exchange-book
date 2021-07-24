@@ -3,19 +3,11 @@ import { Grow, Card, CardActions, CardContent, CardMedia, Button, Typography, Ca
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-<<<<<<< HEAD
-import useStyles from "./styles";
-import Books from "../Books";
-
-const Book = ({ book, addToCart }) => {
-    const classes = useStyles();
-    //const dispatch = useDispatch();
-=======
 import { likeBook } from '../../../action/books';
 
 import useStyles from './styles';
 
-const Book = ({ book }) => {
+const Book = ({ book, addToCart }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -24,13 +16,12 @@ const Book = ({ book }) => {
 		e.preventDefault();
 		history.push(`/books/${book?._id}`);
 	};
->>>>>>> 94b60b81f367874578e8447db372341ad1345ec0
 
 	const handleLike = (e) => {
 		e.preventDefault();
 		dispatch(likeBook(book?._id));
 	};
-
+    
 	return (
 		<Grow in>
 			<Card className={classes.card}>
@@ -48,26 +39,6 @@ const Book = ({ book }) => {
 					{/* <div className={classes.details}>
                     <Typography variant="body2" color="textSecondary">{book.price}</Typography>
                 </div>  */}
-<<<<<<< HEAD
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">{book.title}</Typography>
-                    <Typography variant="body2">{book.review}</Typography>
-                </CardContent>
-                <CardActions className={classes.cardActions}>
-                    <Button size="small" color="primary" onClick={() => {} }>
-                        &nbsp; Like &nbsp;
-                        {book.likeCount}
-                    </Button>
-                    <Button size="small" color="primary" onClick={() => addToCart(book)}>
-                        Borrow
-                    </Button>
-                </CardActions>
-            </Card>
-        </Grow>
-
-    );
-}
-=======
 					<CardContent>
 						<Typography gutterBottom variant='h5' component='h2'>
 							{book?.title}
@@ -80,7 +51,7 @@ const Book = ({ book }) => {
 						&nbsp; Like &nbsp;
 						{book?.likeCount}
 					</Button>
-					<Button size='small' color='primary' onClick={() => {}}>
+					<Button size='small' color='primary' onClick={() => addToCart(book)}>
 						Borrow
 					</Button>
 				</CardActions>
@@ -88,6 +59,5 @@ const Book = ({ book }) => {
 		</Grow>
 	);
 };
->>>>>>> 94b60b81f367874578e8447db372341ad1345ec0
 
 export default Book;

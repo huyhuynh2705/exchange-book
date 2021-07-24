@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect }  from 'react';
 import useStyles from './styles';
 import { Grid, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
@@ -7,22 +7,22 @@ import Book from './Book/Book';
 const Books = () => {
 	const { books } = useSelector((state) => state.books);
 	const classes = useStyles();
-	console.log(books);
+	const [cartItems, setCartItems] = useState([]);
 
 	const addToCart = (book) => {
-		const cartItems = books.slice();
+		const cart = cartItems.slice();
 		let alreadyInCart = false;
-		cartItems.forEach((item) => {
+		cart.forEach((item) => {
 			if (item._id === book._id){
 				item.count++;
 				alreadyInCart = true;
 			}
 		})
 		if (!alreadyInCart){
-			cartItems.push({...book, count: 1})
+			cart.push({...book, count: 1});
+			setCartItems(cart);
 		}
-		console.log("CartItem")
-	} 
+	}; 
 
 	return !books.length ? (
 		<Typography variant='h6' align='center'>

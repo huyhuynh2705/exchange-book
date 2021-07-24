@@ -7,6 +7,11 @@ export default makeStyles((theme) => ({
         border: "0.1rem #c0c0c0 solid",
         backgroundColor: "#f0f0f0",
     },
+    media: {
+        width: "20%",
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundBlendMode: 'darken',
+    },
     button_primary:{
         backgroundColor:"#f0f0f0",
     },

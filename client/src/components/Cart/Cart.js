@@ -1,64 +1,70 @@
 import React, {Component} from 'react';
 import useStyles from "./styles";
+import image from './DoctorStrange_3.jpg';
 
-function formatCurrency(num){
-    return "$" + Number(num.toFixed(1)).toLocaleString() + " ";
-}
-
-export default class Cart extends Component {
-    render(){
-        return (   
-            <div>
-                Cart
+const Cart = () => {
+    const classes = useStyles();
+    const cartItems = [
+        {
+            _id: "1",
+            title: "Dark Nhan tam",
+            count: 2,
+            selectedFile: image
+        }, 
+        {
+            _id: "2",
+            title: "Dark Nhan tam",
+            count: 3,
+            selectedFile: image
+        }, 
+    ];
+    return (
+        <div>
+            {cartItems.length === 0? <div className={classes.cart, classes.cart_header}>Cart is empty.</div>
+            :
+                <div className={classes.cart, classes.cart_header}>
+                    You have {cartItems.length} in the cart {" "}
+                </div>
+            }
+            
+            <div className={classes.cart}>
+                <ul className={classes.cart_items}>
+                    {cartItems.map(item =>(
+                        <li key={item._id}>
+                            <div>
+                                <img className={classes.media} src={item?.selectedFile} alt={item?.title} />
+                            </div>
+                            <div>
+                                <div>{item?.title}</div>
+                                <div className={classes.right}>
+                                    {item.count}{" "}                                    
+                                    <button
+                                        className={classes.button}
+                                        onClick={()=>this.props.removeFromCart(item)}
+                                    >
+                                        Remove
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
             </div>
-        )
-        // const {cartItems} = this.props;
-        // return (
-        //     <div>
-        //         {cartItems.length === 0? <div className="cart cart-header">Cart is empty.</div>
-        //         :
-        //             <div className="cart cart-header">
-        //                 You have {cartItems.length} in the cart {" "}
-        //             </div>
-        //         }
-                
-        //         {/* <div className="cart">
-        //             <ul className="cart-items">
-        //                 {cartItems.map(item =>(
-        //                     <li key={item._id}>
-        //                         <div>
-        //                             <img src={item.image}> alt={item.title}</img>
-        //                         </div>
-        //                         <div>
-        //                             <div>{item.title}</div>
-        //                             <div className="right">
-        //                                 {formatCurrency(item.price)} x {item.count}{" "}                                    
-        //                                 <button
-        //                                     className="button"
-        //                                     onClick={()=>this.props.removeFromCart(items)}
-        //                                 >
-        //                                     Remove
-        //                                 </button>
-        //                             </div>
-        //                         </div>
-        //                     </li>
-        //                 ))}
-        //             </ul>
-        //         </div>
-        //         {cartItems.length != 0 && (
-        //             <div className="cart">
-        //                 <div className="total">
-        //                     <div>
-        //                         Total: 
-        //                         {formatCurrency(
-        //                             cartItems.reduce((a, c) => a + c.price * c.count, 0)
-        //                         )}
-        //                     </div>
-        //                     <button className="button primary">Proceed</button>
-        //                 </div>
-        //             </div>
-        //         )} */}
-        //     </div>
-        // )
-    }
+            {cartItems.length != 0 && (
+                <div className={classes.cart}>
+                    <div className={classes.total}>
+                        <div>
+                            Total: 
+                            {
+                                cartItems.reduce((a,v) =>  a = a + v.count , 0 )
+                            }
+                        </div>
+                        <button className={classes.button_primary}>Proceed</button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 }
+
+export default Cart;

@@ -12,27 +12,6 @@ export const getBook = async (req, res) => {
 };
 
 export const getBooks = async (req, res) => {
-<<<<<<< HEAD
-    try {
-        const BookMessages = await BookMessage.find();
-        res.status(200).json({BookMessages});
-    } catch (error) {
-        res.status(404).json({message: error.message});
-    }
-}
-
-export const createBook = async (req, res) => {
-    const Book = req.body;
-    const newBook = new BookMessage(Book);
-
-    try {
-        await newBook.save();
-        res.status(201).json(newBook);
-    } catch (error) {
-        res.status(409).json({message: error.message});
-    }
-}
-=======
 	try {
 		const BookMessages = await BookMessage.find();
 
@@ -54,7 +33,6 @@ export const createBook = async (req, res) => {
 		res.status(409).json({ message: error.message });
 	}
 };
->>>>>>> 94b60b81f367874578e8447db372341ad1345ec0
 
 export const updateBook = async (req, res) => {
 	const { id: _id } = req.params;
