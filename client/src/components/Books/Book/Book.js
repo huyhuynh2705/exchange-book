@@ -7,10 +7,14 @@ import { likeBook } from '../../../action/books';
 
 import useStyles from './styles';
 
-const Book = ({ book, addToCart }) => {
+const Book = ({ book, onAddToCart }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const history = useHistory();
+
+	const handleAddToCart = () => {
+		onAddToCart(book);
+	}
 
 	const handleClick = (e) => {
 		e.preventDefault();
@@ -51,7 +55,7 @@ const Book = ({ book, addToCart }) => {
 						&nbsp; Like &nbsp;
 						{book?.likeCount}
 					</Button>
-					<Button size='small' color='primary' onClick={() => addToCart(book)}>
+					<Button size='small' color='primary' onClick={handleAddToCart}>
 						Borrow
 					</Button>
 				</CardActions>

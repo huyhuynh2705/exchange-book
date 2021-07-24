@@ -8,11 +8,20 @@ export default makeStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  cartActions: {
+  card: {
+    display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'space-between',
+    borderRadius: '5px',
+    height: '100%',
+    position: 'relative',
+  },
+  cartActions: {
+    justifyContent: 'flex-end',
   },
   buttons: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'flex-start',
   },
 }));
