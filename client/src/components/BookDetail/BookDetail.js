@@ -36,9 +36,6 @@ const BookDetail = () => {
 							<MoreHorizIcon fontSize='default' />
 						</Button>
 					</div>
-					{/* <div className={classes.details}>
-                    <Typography variant="body2" color="textSecondary">{book.price}</Typography>
-                </div>  */}
 					<CardContent>
 						<Typography gutterBottom variant='h5' component='h2'>
 							{book?.title}
