@@ -16,7 +16,6 @@ const App = (props) => {
 
 	const addToCart = (book) => {
 		let alreadyInCart = false;
-		console.log(cart);
 		cart.forEach((item) => {
 			if (item._id === book._id){
 				item.count++;
@@ -33,19 +32,17 @@ const App = (props) => {
 		let cart_copy = [...cart];
 		let idx = cart.findIndex(item => item._id === book._id);
 		cart_copy[idx].count = quantity;
-		if (!cart_copy[idx].count) removeFromCart(book);
-		setCart(cart_copy);
+		if (cart_copy[idx].count == 0) removeFromCart(book);
+		else setCart(cart_copy);
 	}; 
 
 	const removeFromCart = (book) => {
 		const items = cart.filter(item => item._id !== book._id);
   		setCart(items);
-		console.log("Removed:" + cart);
 	}; 
 
 	const emptyCart = () => {
 		setCart([]);
-		console.log(cart);
 	}; 
 
 	return (
