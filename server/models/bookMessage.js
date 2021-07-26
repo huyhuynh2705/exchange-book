@@ -7,16 +7,14 @@ const BookSchema = mongoose.Schema({
 		default: 'Available',
 	},
 	creator: String,
+	creatorId: mongoose.Schema.Types.ObjectId,
 	price: {
 		type: Number,
 		default: 0,
 	},
 	selectedFile: String,
 	review: String,
-	likeCount: {
-		type: Number,
-		default: 0,
-	},
+	likeCount: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 	createAt: Date,
 });
 

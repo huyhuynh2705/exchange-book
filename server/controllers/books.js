@@ -22,9 +22,8 @@ export const getBooks = async (req, res) => {
 };
 
 export const createBook = async (req, res) => {
-	const { title, creator, price, selectedFile, review } = req.body;
-
-	const newBook = new BookMessage({ title, creator, price, selectedFile, review, createAt: new Date().toISOString() });
+	const { title, creator, creatorId, price, selectedFile, review } = req.body;
+	const newBook = new BookMessage({ title, creator, creatorId, price, selectedFile, review, createAt: new Date().toISOString() });
 	try {
 		await newBook.save();
 
@@ -47,21 +46,28 @@ export const updateBook = async (req, res) => {
 
 export const deleteBook = async (req, res) => {
 	const { id } = req.params;
+	const oldBook = await BookMessage.findById(id);
 
-	if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No Book with that id');
+	if (!oldBook) return res.status(404).send('No Book with that id');
 
 	await BookMessage.findByIdAndRemove(id);
 
-	res.json({ message: 'Book deleted sucessfully' });
+	res.json(oldBook);
 };
 
 export const likeBook = async (req, res) => {
 	const { id } = req.params;
+	const { userId } = req.body;
 	if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No Book with that id');
 
 	const oldBook = await BookMessage.findById(id);
-	oldBook.likeCount = oldBook.likeCount + 1;
 
+	const index = oldBook.likeCount.findIndex((id) => String(id) === userId);
+	if (index === -1) {
+		oldBook.likeCount.push(userId);
+	} else {
+		oldBook.likeCount = oldBook.likeCount.filter((id) => String(id) !== userId);
+	}
 	const likedBook = await BookMessage.findByIdAndUpdate(id, oldBook, { new: true });
 	res.json(likedBook);
 };

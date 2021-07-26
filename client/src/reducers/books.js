@@ -13,9 +13,12 @@ const bookReducer = (state = { books: [] }, action) => {
 		case UPDATE:
 		case LIKE:
 			return { ...state, books: state.books.map((book) => (book._id === action.payload._id ? action.payload : book)) };
-		case DELETE:
+		case 'ADD_TO_CART':
 			return { ...state, books: state.books.filter((book) => book._id !== action.payload._id) };
+		case DELETE:
+			return { ...state, books: state.books.filter((book) => book._id !== action.payload) };
 		case 'GET_BOOK':
+		case 'LIKE_BOOK':
 			return { ...state, book: action.payload };
 		default:
 			return state;

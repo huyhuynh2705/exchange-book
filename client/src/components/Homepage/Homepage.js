@@ -11,7 +11,7 @@ const useQuery = () => {
 	return new URLSearchParams(useLocation().search);
 };
 
-const Homepage = () => {
+const Homepage = ({ onAddToCart }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const query = useQuery();
@@ -44,7 +44,7 @@ const Homepage = () => {
 				<div style={{ height: '20px' }} />
 				<Grid container justify='space-between' alignItems='stretch' spacing={3}>
 					<Grid item xs={12} sm={12}>
-						<Books />
+						<Books onAddToCart={onAddToCart} />
 					</Grid>
 				</Grid>
 			</Container>

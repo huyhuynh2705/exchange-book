@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import BookMessage from './bookMessage.js';
 
 const userSchema = mongoose.Schema({
 	email: { type: String, required: true },

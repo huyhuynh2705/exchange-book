@@ -48,9 +48,9 @@ export const deleteBook = (id) => async (dispatch) => {
 	}
 };
 
-export const likeBook = (id) => async (dispatch) => {
+export const likeBook = (id, userId) => async (dispatch) => {
 	try {
-		const { data } = await api.likeBook(id);
+		const { data } = await api.likeBook(id, userId);
 
 		dispatch({ type: LIKE, payload: data });
 	} catch (error) {
@@ -58,9 +58,19 @@ export const likeBook = (id) => async (dispatch) => {
 	}
 };
 
-export const fetchBooksBySearch = (searchQuery) => async (dispatch) => {
+export const likeBookDetail = (id, userId) => async (dispatch) => {
 	try {
-		const { data } = await api.fetchQuestionsBySearch(searchQuery);
+		const { data } = await api.likeBook(id, userId);
+
+		dispatch({ type: 'LIKE_BOOK', payload: data });
+	} catch (error) {
+		console.log(error.response);
+	}
+};
+
+export const fetchBooksBySearch = (search) => async (dispatch) => {
+	try {
+		const { data } = await api.fetchQuestionsBySearch(search);
 		dispatch({ type: 'FETCH_BY_SEARCH', payload: data });
 	} catch (error) {
 		console.log(error);
