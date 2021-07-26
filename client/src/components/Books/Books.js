@@ -1,11 +1,11 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect } from 'react';
 import useStyles from './styles';
 import { Grid, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import Book from './Book/Book';
 
-const Books = ({onAddToCart}) => {
-	const { books } = useSelector((state) => state.books);
+const Books = ({ onAddToCart }) => {
+	let { books } = useSelector((state) => state.books);
 	const classes = useStyles();
 
 	return !books.length ? (
@@ -16,7 +16,7 @@ const Books = ({onAddToCart}) => {
 		<Grid className={classes.container} container alignitems='strech' spacing={3}>
 			{books.map((book) => (
 				<Grid key={book._id} item xs={12} sm={6} md={3}>
-					<Book book={book} onAddToCart={onAddToCart}/>
+					<Book book={book} onAddToCart={onAddToCart} />
 				</Grid>
 			))}
 		</Grid>

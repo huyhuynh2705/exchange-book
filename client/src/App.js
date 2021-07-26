@@ -1,6 +1,7 @@
 import Homepage from './components/Homepage/Homepage';
 import Cart from './components/Cart/Cart';
 import AddBook from './components/AddBook/AddBook';
+import Checkout from './components/Checkout/Checkout';
 import BookDetail from './components/BookDetail/BookDetail';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Container } from '@material-ui/core';
@@ -17,33 +18,33 @@ const App = (props) => {
 	const addToCart = (book) => {
 		let alreadyInCart = false;
 		cart.forEach((item) => {
-			if (item._id === book._id){
+			if (item._id === book._id) {
 				item.count++;
 				alreadyInCart = true;
 			}
-		})
-		if (!alreadyInCart){
-			cart.push({...book, count: 1});
+		});
+		if (!alreadyInCart) {
+			cart.push({ ...book, count: 1 });
 			setCart(cart);
 		}
-	}; 
+	};
 
 	const updateCartQty = (book, quantity) => {
 		let cart_copy = [...cart];
-		let idx = cart.findIndex(item => item._id === book._id);
+		let idx = cart.findIndex((item) => item._id === book._id);
 		cart_copy[idx].count = quantity;
 		if (cart_copy[idx].count == 0) removeFromCart(book);
 		else setCart(cart_copy);
-	}; 
+	};
 
 	const removeFromCart = (book) => {
-		const items = cart.filter(item => item._id !== book._id);
-  		setCart(items);
-	}; 
+		const items = cart.filter((item) => item._id !== book._id);
+		setCart(items);
+	};
 
 	const emptyCart = () => {
 		setCart([]);
-	}; 
+	};
 
 	return (
 		<BrowserRouter>
@@ -51,17 +52,18 @@ const App = (props) => {
 				<Header />
 				<Switch>
 					<Route exact path='/'>
-						<Homepage onAddToCart={addToCart}/>
+						<Homepage onAddToCart={addToCart} />
 					</Route>
 					<Route exact path='/search'>
-						<Homepage onAddToCart={addToCart}/>
+						<Homepage onAddToCart={addToCart} />
 					</Route>
 					<Route path='/books/:id' exact component={BookDetail} />
 					<Route exact path='/cart'>
-						<Cart cart={cart} onRemoveFromCart={removeFromCart} onUpdateCartQty={updateCartQty} onEmptyCart={emptyCart}/>
+						<Cart cart={cart} onRemoveFromCart={removeFromCart} onUpdateCartQty={updateCartQty} onEmptyCart={emptyCart} />
 					</Route>
 					<Route path='/auth' exact component={() => (!user ? <Auth /> : <Redirect to='/' />)} />
 					<Route path='/addbook' component={AddBook} />
+					<Route path='/checkout' component={Checkout} />
 				</Switch>
 			</Container>
 		</BrowserRouter>

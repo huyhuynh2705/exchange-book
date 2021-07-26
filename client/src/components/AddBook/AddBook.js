@@ -6,7 +6,7 @@ import useStyles from './styles';
 import { createBook } from '../../action/books';
 import { useHistory } from 'react-router-dom';
 
-const initialState = { title: '', review: '', price: '', selectedFile: '', creator: '' };
+const initialState = { title: '', review: '', price: '', selectedFile: '', creatorId: '', creator: '' };
 
 const AddBook = () => {
 	const classes = useStyles();
@@ -17,8 +17,7 @@ const AddBook = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log({ ...form, creator: user?.result?.fullName });
-		const id = await dispatch(createBook({ ...form, creator: user?.result?.fullName }));
+		const id = await dispatch(createBook({ ...form, creatorId: user?.result?._id, creator: user?.result?.fullName }));
 		history.push(`/books/${id}`);
 	};
 

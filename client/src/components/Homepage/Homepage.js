@@ -44,7 +44,7 @@ const Homepage = ({ onAddToCart }) => {
 				<div style={{ height: '20px' }} />
 				<Grid container justify='space-between' alignItems='stretch' spacing={3}>
 					<Grid item xs={12} sm={12}>
-						<Books onAddToCart={onAddToCart}/>
+						<Books onAddToCart={onAddToCart} />
 					</Grid>
 				</Grid>
 			</Container>

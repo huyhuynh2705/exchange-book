@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Grow, Card, CardActions, CardContent, CardMedia, Button, Typography, Container } from '@material-ui/core';
+import { Grow, Button, Typography, Container, Grid, Paper } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-import { getBook, likeBook } from '../../action/books';
+import { getBook, likeBookDetail } from '../../action/books';
 import useStyles from './styles';
 
 const BookDetail = () => {
 	const classes = useStyles();
 	const { id } = useParams();
+	const user = JSON.parse(localStorage.getItem('profile'));
 	const book = useSelector((store) => store.books.book);
 	const dispatch = useDispatch();
-	console.log(book);
 
 	const handleLike = (e) => {
 		e.preventDefault();
-		dispatch(likeBook(book?._id));
+		dispatch(likeBookDetail(book?._id, { userId: user?.result?._id }));
 	};
 
 	useEffect(() => {
@@ -26,33 +26,31 @@ const BookDetail = () => {
 
 	return (
 		<Container>
-			<Grow in>
-				<Card className={classes.card}>
-					<CardMedia className={classes.media} image={book?.selectedFile} title={book?.title} />
-					<Typography variant='h6'>{book?.creator}</Typography>
-					<Typography variant='body2'>{book?.condition}</Typography>
-					<div className={classes.overlay2}>
-						<Button style={{ color: 'white' }} size='small' onClick={() => {}}>
-							<MoreHorizIcon fontSize='default' />
-						</Button>
-					</div>
-					<CardContent>
+			<Paper style={{ padding: '20px' }}>
+				<Grid container spacing={3}>
+					<Grid item xs={6}>
+						<img className={classes.image} src={book?.selectedFile} alt={book?.title} />
+					</Grid>
+					<Grid item xs={6}>
+						<Typography variant='h6'>{book?.creator}</Typography>
+						<Typography variant='body1'>{book?.condition}</Typography>
 						<Typography gutterBottom variant='h5' component='h2'>
 							{book?.title}
 						</Typography>
-						<Typography variant='body2'>{book?.review}</Typography>
-					</CardContent>
-					<CardActions className={classes.cardActions}>
-						<Button size='small' color='primary' onClick={handleLike}>
+						<Typography variant='body2' gutterBottom>
+							{book?.review}
+						</Typography>
+						<Button size='large' variant='outlined' color='primary' onClick={handleLike}>
 							&nbsp; Like &nbsp;
-							{book?.likeCount}
+							{book?.likeCount?.length}
 						</Button>
-						<Button size='small' color='primary' onClick={() => {}}>
+						&nbsp; &nbsp;
+						<Button size='large' variant='outlined' color='primary' onClick={() => {}}>
 							Borrow
 						</Button>
-					</CardActions>
-				</Card>
-			</Grow>
+					</Grid>
+				</Grid>
+			</Paper>
 		</Container>
 	);
 };

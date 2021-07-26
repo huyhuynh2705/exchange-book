@@ -3,20 +3,14 @@ import { Link, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Avatar, TextField, AppBar, Toolbar, Typography, Button } from '@material-ui/core';
 
-// import { fetchQuestionsBySearch } from '../../actions/questions';
+import { fetchBooksBySearch } from '../../action/books';
 
 import useStyles from './styles';
-
-// const useQuery = () => {
-// 	return new URLSearchParams(useLocation().search);
-// };
 
 const Header = () => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const history = useHistory();
-	// const query = useQuery();
-	// const searchQuery = query.get('searchQuery');
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 	const [search, setSearch] = useState('');
 	const location = useLocation();
@@ -28,8 +22,9 @@ const Header = () => {
 	};
 
 	const searchQuestion = (e) => {
+		e.preventDefault();
 		if (search.trim()) {
-			// dispatch(fetchQuestionsBySearch({ search }, 1));
+			dispatch(fetchBooksBySearch(search));
 			history.push(`/search?searchQuery=${search}`);
 		} else {
 			history.push('/');

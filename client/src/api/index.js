@@ -14,9 +14,9 @@ export const signUp = (form) => API.post('/auth/signup', form);
 
 export const fetchBooks = () => API.get('/books');
 export const createBook = (newBook) => API.post('/books', newBook);
-export const getBook = (id) => API.get(`/books/${id}`);
+export const getBook = (id) => API.get(`/books/book/${id}`);
 export const updateBook = (id, updatedBook) => API.patch(`/books/${id}`, updatedBook);
 export const deleteBook = (id) => API.delete(`/books/${id}`);
-export const likeBook = (id) => API.patch(`/books/${id}/likeBook`);
+export const likeBook = (id, userId) => API.patch(`/books/${id}/likeBook`, userId);
 
-export const fetchQuestionsBySearch = (searchQuery) => API.get(`/books/search?searchQuery=${searchQuery}`);
+export const fetchQuestionsBySearch = (search) => API.get(`/books/search?searchQuery=${search}`);
