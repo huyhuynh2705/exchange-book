@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grow, Grid, Button } from '@material-ui/core';
-import { useLocation, useParams, useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Books from '../../components/Books/Books';
 import useStyles from './styles';
@@ -13,6 +13,7 @@ const useQuery = () => {
 
 const Homepage = ({ onAddToCart }) => {
 	const classes = useStyles();
+	const location = useLocation();
 	const dispatch = useDispatch();
 	const query = useQuery();
 	const searchQuery = query.get('searchQuery') || undefined;
@@ -23,7 +24,7 @@ const Homepage = ({ onAddToCart }) => {
 		} else {
 			dispatch(getBooks());
 		}
-	}, []);
+	}, [location]);
 
 	return (
 		<Grow in>

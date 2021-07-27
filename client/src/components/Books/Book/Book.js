@@ -50,11 +50,13 @@ const Book = ({ book, onAddToCart }) => {
 						</div>
 					)}
 					<CardContent>
-						<Typography variant='subtitle1'>Price: {book?.price === 0 ? 'Free' : `${book?.price}đ`}</Typography>
-						<Typography gutterBottom variant='h5' component='h2'>
-							{book?.title}
-						</Typography>
-						<Typography variant='body2'>{book?.review}</Typography>
+						<div onClick={handleClick}>
+							<Typography variant='subtitle1'>Price: {book?.price === 0 ? 'Free' : `${book?.price}đ`}</Typography>
+							<Typography gutterBottom variant='h6'>
+								{book?.title}
+							</Typography>
+							<Typography variant='body2'>{book?.review.length > 200 ? book?.review.slice(0, 200) + '...' : book?.review}</Typography>
+						</div>
 					</CardContent>
 				</CardActionArea>
 				<CardActions className={classes.cardActions}>

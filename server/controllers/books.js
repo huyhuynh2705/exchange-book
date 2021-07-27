@@ -15,7 +15,7 @@ export const getBooks = async (req, res) => {
 	try {
 		const BookMessages = await BookMessage.find();
 
-		res.status(200).json(BookMessages);
+		res.status(200).json(BookMessages.reverse());
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
@@ -78,7 +78,7 @@ export const fetchBooksBySearch = async (req, res) => {
 		const title = new RegExp(searchQuery, 'i');
 		const books = await BookMessage.find({ $or: [{ title }] });
 
-		res.status(200).json(books);
+		res.status(200).json(books.reverse());
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
