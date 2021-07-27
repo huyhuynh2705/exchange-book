@@ -33,14 +33,15 @@ const BookDetail = () => {
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='h6'>{book?.creator}</Typography>
+						<Typography variant='subtitle1'>Price: {book?.price === 0 ? 'Free' : `${book?.price}đ`}</Typography>
 						<Typography variant='body1'>{book?.condition}</Typography>
 						<Typography gutterBottom variant='h5' component='h2'>
 							{book?.title}
 						</Typography>
 						<Typography variant='body2' gutterBottom>
-							{book?.review}
+							Review: {book?.review}
 						</Typography>
-						<Button size='large' variant='outlined' color='primary' onClick={handleLike}>
+						<Button size='large' variant='outlined' disabled={!user} color='primary' onClick={handleLike}>
 							&nbsp; Like &nbsp;
 							{book?.likeCount?.length}
 						</Button>

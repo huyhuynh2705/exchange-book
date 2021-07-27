@@ -23,7 +23,7 @@ const Homepage = ({ onAddToCart }) => {
 		} else {
 			dispatch(getBooks());
 		}
-	});
+	}, []);
 
 	return (
 		<Grow in>

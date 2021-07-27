@@ -33,7 +33,7 @@ const App = (props) => {
 		let cart_copy = [...cart];
 		let idx = cart.findIndex((item) => item._id === book._id);
 		cart_copy[idx].count = quantity;
-		if (cart_copy[idx].count == 0) removeFromCart(book);
+		if (cart_copy[idx].count === 0) removeFromCart(book);
 		else setCart(cart_copy);
 	};
 
