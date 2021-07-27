@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useStyles from './styles';
-import { Grid, Typography } from '@material-ui/core';
+import { CircularProgress, Grid, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import Book from './Book/Book';
 
@@ -11,14 +11,13 @@ const Books = ({ onAddToCart }) => {
 	const cartId = cart.map((book) => book?._id);
 	let newBook = [];
 	newBook = books.filter((book) => !cartId.includes(book?._id));
+
 	useEffect(() => {
 		newBook = books.filter((book) => !cartId.includes(book?._id));
 	}, [books, cart]);
 
 	return !books.length ? (
-		<Typography variant='h6' align='center'>
-			0 book found
-		</Typography>
+		<CircularProgress />
 	) : (
 		<Grid className={classes.container} container alignitems='strech' spacing={3}>
 			{newBook?.map((book) => (

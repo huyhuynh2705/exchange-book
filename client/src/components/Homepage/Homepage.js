@@ -26,6 +26,10 @@ const Homepage = ({ onAddToCart }) => {
 		}
 	}, [location]);
 
+	useEffect(() => {
+		dispatch(getBooks());
+	}, []);
+
 	return (
 		<Grow in>
 			<Container>

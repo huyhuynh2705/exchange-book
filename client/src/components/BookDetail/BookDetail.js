@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Grow, Button, Typography, Container, Grid, Paper } from '@material-ui/core';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import { CircularProgress, Button, Typography, Container, Grid, Paper } from '@material-ui/core';
 
 import { getBook, likeBookDetail } from '../../action/books';
 import useStyles from './styles';
@@ -24,7 +23,11 @@ const BookDetail = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return (
+	return !book || book?._id !== id ? (
+		<Paper style={{ padding: '20px' }}>
+			<CircularProgress />
+		</Paper>
+	) : (
 		<Container>
 			<Paper style={{ padding: '20px' }}>
 				<Grid container spacing={3}>
