@@ -50,6 +50,7 @@ const Book = ({ book, onAddToCart }) => {
 						</div>
 					)}
 					<CardContent>
+						<Typography variant='subtitle1'>Price: {book?.price === 0 ? 'Free' : `${book?.price}đ`}</Typography>
 						<Typography gutterBottom variant='h5' component='h2'>
 							{book?.title}
 						</Typography>
@@ -57,7 +58,7 @@ const Book = ({ book, onAddToCart }) => {
 					</CardContent>
 				</CardActionArea>
 				<CardActions className={classes.cardActions}>
-					<Button size='small' color='primary' onClick={handleLike}>
+					<Button size='small' color='primary' disabled={!user} onClick={handleLike}>
 						&nbsp; Like &nbsp;
 						{book?.likeCount?.length}
 					</Button>

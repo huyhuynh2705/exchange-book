@@ -17,8 +17,8 @@ const Header = () => {
 
 	const signOut = () => {
 		dispatch({ type: 'LOG_OUT' });
-		window.location.reload();
 		setUser(null);
+		window.location.reload();
 	};
 
 	const searchQuestion = (e) => {
@@ -41,7 +41,7 @@ const Header = () => {
 				<Toolbar>
 					<Typography variant='h6' className={classes.title}>
 						<Link className={classes.link} to={'/'} underline='none' color='initial'>
-							STACKUNDERFLOW
+							BOOK EXCHANGE
 						</Link>
 					</Typography>
 					<div className={classes.search}>

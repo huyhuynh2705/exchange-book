@@ -13,8 +13,9 @@ const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
 	return (
 		<Card className={classes.card}>
 			<CardMedia image={item?.selectedFile} alt={item?.title} className={classes.media} />
-			<CardContent className={classes.cardContent}>
-				<Typography variant='h4'>{item?.title}</Typography>
+			<CardContent>
+				<Typography variant='body1'>{item?.price}đ</Typography>
+				<Typography variant='h6'>{item?.title}</Typography>
 			</CardContent>
 			<CardActions className={classes.cardActions}>
 				{/* <div className={classes.buttons}>
