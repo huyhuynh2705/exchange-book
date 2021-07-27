@@ -64,7 +64,7 @@ const Book = ({ book, onAddToCart }) => {
 						&nbsp; Like &nbsp;
 						{book?.likeCount?.length}
 					</Button>
-					<Button size='small' color='primary' onClick={handleAddToCart}>
+					<Button disabled={user?.result?._id === book?.creatorId} size='small' color='primary' onClick={handleAddToCart}>
 						Borrow
 					</Button>
 				</CardActions>
