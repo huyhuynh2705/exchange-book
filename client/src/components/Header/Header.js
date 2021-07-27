@@ -30,6 +30,14 @@ const Header = () => {
 			history.push('/');
 		}
 	};
+
+	const handleKeyPress = (e) => {
+		if (e.keyCode === 13) {
+			dispatch(fetchBooksBySearch(search));
+			history.push(`/search?searchQuery=${search}`);
+		}
+	};
+
 	useEffect(() => {
 		setUser(JSON.parse(localStorage.getItem('profile')));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,11 +54,12 @@ const Header = () => {
 					</Typography>
 					<div className={classes.search}>
 						<TextField
+							onKeyDown={handleKeyPress}
 							className={classes.textField}
 							margin='dense'
 							size='small'
 							variant='filled'
-							label='Search questions'
+							label='Search books'
 							fullWidth
 							InputProps={{
 								className: classes.input,
